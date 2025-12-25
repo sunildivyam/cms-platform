@@ -4,7 +4,6 @@ import express from "express";
 
 import { requireAuth } from "../auth/requireAuth";
 import { requireRole } from "../auth/requireRole";
-import { createEntryHandler } from "./entryHandlers";
 import { createContentType } from "contentTypes/createContentType";
 import { listContentTypes } from "contentTypes/listContentTypes";
 import { updateContentType } from "contentTypes/updateContentType";
@@ -18,6 +17,8 @@ import { publishEntry } from "entries/publishEntry";
 import { unpublishEntry } from "entries/unpublishEntry";
 import { listVersions } from "versions/listVersions";
 import { rollbackVersion } from "versions/rollbackVersion";
+import { listPublicEntries } from "public/listPublicEntries";
+import { getPublicEntry } from "public/getPublicEntry";
 
 admin.initializeApp();
 
@@ -102,5 +103,9 @@ app.post(
   requireRole(["admin", "editor"]),
   rollbackVersion
 );
+
+// ***** public entries
+app.get("/public/:tenant/:type", listPublicEntries);
+app.get("/public/:tenant/:type/:slug", getPublicEntry);
 
 export const api = functions.https.onRequest(app);

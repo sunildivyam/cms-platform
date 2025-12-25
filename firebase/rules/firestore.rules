@@ -1,6 +1,11 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    match /tenants/{tenantId}/entries/{type}/items/{entryId} {
+      allow read: if resource.data.status == "published";
+      allow write: if false;
+    }
+
     match /tenants/{tenantId}/{doc=**} {
       allow read, write: if
         request.auth != null &&
