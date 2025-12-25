@@ -17,3 +17,13 @@ Update Payload
     { "id": "excerpt", "label": "Excerpt", "type": "text" }
   ]
 }
+
+WEBHOOK PAYLOAD (STANDARDIZED)
+{
+  event: "publish",
+  tenant: "demo",
+  type: "blog",
+  entryId: "abc123",
+  slug: "hello-world",
+  timestamp: 1710000000
+}

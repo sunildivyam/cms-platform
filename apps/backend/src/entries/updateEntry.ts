@@ -5,6 +5,7 @@ import { validateEntry } from "../validation/validateEntry";
 import { ContentType } from "@cms/shared";
 import { createVersionSnapshot } from "versions/createVersionSnapshot";
 import { emitContentEvent } from "events/emitContentEvent";
+import { dispatchWebhooks } from "webhooks/dispatchWebhooks";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -27,7 +28,7 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
   }
 
   const schema = typeSnap.docs[0].data() as ContentType;
-  
+
   const entryRef = db
     .collection("tenants")
     .doc(tenantId)
@@ -63,13 +64,23 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
     updatedAt: Date.now(),
   });
 
-  // Trigger Cache revalidate
+  // Trigger Cache revalidate (TODO: apply this for only published enteries)
   await emitContentEvent({
     tenant: tenantId,
     type,
     entryId: id,
     slug: snap.data()!.data.slug,
     action: "update",
+  });
+
+  //  Dispatch Webhook (TODO: apply this for only published enteries)
+  await dispatchWebhooks(tenantId, "publish", {
+    event: "publish",
+    tenant: tenantId,
+    type,
+    entryId: id,
+    slug: snap.data()!.data.slug,
+    timestamp: Date.now(),
   });
 
   res.json({ success: true });

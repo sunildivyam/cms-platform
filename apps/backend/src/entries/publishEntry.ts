@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 import { createVersionSnapshot } from "versions/createVersionSnapshot";
 import { emitContentEvent } from "events/emitContentEvent";
+import { dispatchWebhooks } from "webhooks/dispatchWebhooks";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -54,6 +55,16 @@ export async function publishEntry(req: AuthedRequest, res: Response) {
     entryId: id,
     slug: snap.data()!.data.slug,
     action: "publish",
+  });
+
+  //  Dispatch Webhook
+  await dispatchWebhooks(tenantId, "publish", {
+    event: "publish",
+    tenant: tenantId,
+    type,
+    entryId: id,
+    slug: snap.data()!.data.slug,
+    timestamp: Date.now(),
   });
 
   res.json({ success: true });

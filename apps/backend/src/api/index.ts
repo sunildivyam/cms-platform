@@ -19,6 +19,10 @@ import { listVersions } from "versions/listVersions";
 import { rollbackVersion } from "versions/rollbackVersion";
 import { listPublicEntries } from "public/listPublicEntries";
 import { getPublicEntry } from "public/getPublicEntry";
+import { createWebhook } from "webhooks/createWebhook";
+import { getWebhooks } from "webhooks/getWebhooks";
+import { getWebhookById } from "webhooks/getWebhookById";
+import { deleteWebhook } from "webhooks/deleteWebhook";
 
 admin.initializeApp();
 
@@ -102,6 +106,24 @@ app.post(
   requireAuth,
   requireRole(["admin", "editor"]),
   rollbackVersion
+);
+
+// ******* Webhooks
+app.get("/webhooks", requireAuth, getWebhooks);
+app.get("/webhooks/:id", requireAuth, getWebhookById);
+
+app.post(
+  "/webhooks",
+  requireAuth,
+  requireRole(["admin", "editor"]),
+  createWebhook
+);
+
+app.delete(
+  "/webhooks/:id",
+  requireAuth,
+  requireRole(["admin", "editor"]),
+  deleteWebhook
 );
 
 // ***** public entries
