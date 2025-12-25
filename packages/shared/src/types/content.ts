@@ -25,10 +25,11 @@ export interface ContentType {
   versioned: boolean;
 }
 
-export interface ContentEntry<T = any> {
+export interface Entry<T = any> {
   id: string;
-  type: string;
+  contetType: string;
   status: "draft" | "published";
   data: T;
   version: number;
+  deleted: boolean;
 }

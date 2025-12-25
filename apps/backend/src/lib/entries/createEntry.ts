@@ -1,13 +1,13 @@
 import * as admin from "firebase-admin";
 import { HttpsError } from "firebase-functions/v2/https";
 
-import { validateEntryData } from "../lib/validateEntry";
-import { ContentEntry, ContentType } from "@cms/shared";
+import { validateEntryData } from "./validateEntry";
+import { Entry, ContentType } from "@cms/shared";
 
 const db = admin.firestore();
 
 export const createEntry = async (
-  data: ContentEntry,
+  data: Entry,
   tenantId: string,
   contentType: string,
   status = "draft"
@@ -27,11 +27,12 @@ export const createEntry = async (
   const schema = typeSnap.docs[0].data() as ContentType;
   validateEntryData(schema, data);
 
-  const entry: ContentEntry = {
-    tenantId: tenantId,
+  const entry: Entry = {
+    tenantId,
     contentType,
     data,
     status,
+    deleted: false,
     createdAt: Date.now(),
     updatedAt: Date.now(),
   };
