@@ -11,11 +11,16 @@ export type FieldType =
   | "slug";
 
 export interface ContentField {
-  id: string;
+  name: string;
   label: string;
   type: FieldType;
   required?: boolean;
   localized?: boolean;
+  readOnly?: boolean;
+  permissions?: {
+    read?: string[];
+    write?: string[];
+  };
 }
 
 export interface ContentType {
