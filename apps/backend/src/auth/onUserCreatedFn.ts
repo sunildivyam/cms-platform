@@ -40,7 +40,8 @@ export const onUserCreatedFn = beforeUserCreated(
     await tenantRef.set(tenantData);
     await tenantRef.collection("users").doc(user.uid).set(userData);
 
-    // ❌ DO NOT DO THIS: because claims can not be set, before a new user is saved to firebase auth
+    // ❌ DO NOT DO THIS: because claims can not be set,
+    // before a new user is saved to firebase auth
     // await admin.auth().setCustomUserClaims(user.uid, { tenantId });
 
     // ✅ DO THIS INSTEAD:

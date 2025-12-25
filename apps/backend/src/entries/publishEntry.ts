@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 import { createVersionSnapshot } from "versions/createVersionSnapshot";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function publishEntry(req: AuthedRequest, res: Response) {

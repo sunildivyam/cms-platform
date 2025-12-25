@@ -1,9 +1,10 @@
 import { Response } from "express";
 import * as admin from "firebase-admin";
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import { AuthedRequest } from "../auth/requireAuth";
 import { ContentType } from "@cms/shared";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function createContentType(req: AuthedRequest, res: Response) {
@@ -27,7 +28,7 @@ export async function createContentType(req: AuthedRequest, res: Response) {
   }
 
   const now = Date.now();
-  const id = nanoid();
+  const id = randomUUID();
 
   const contentType: ContentType = {
     id,

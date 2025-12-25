@@ -2,6 +2,7 @@ import { Response } from "express";
 import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function deleteEntry(req: AuthedRequest, res: Response) {

@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 import { filterReadableFields } from "validation/filterReadableFields";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function getEntry(req: AuthedRequest, res: Response) {
