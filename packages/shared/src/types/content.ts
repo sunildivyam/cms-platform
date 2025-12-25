@@ -50,4 +50,13 @@ export interface ContentEntry {
   isDeleted: boolean;
   createdAt: number;
   updatedAt: number;
+  currentVersion: number;
+}
+
+export interface ContentVersion {
+  version: number;
+  data: Record<string, any>;
+  status: "draft" | "published";
+  createdBy: string;
+  createdAt: number;
 }

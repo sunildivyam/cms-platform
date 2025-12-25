@@ -3,6 +3,7 @@ import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 import { validateEntry } from "../validation/validateEntry";
 import { ContentType } from "@cms/shared";
+import { createVersionSnapshot } from "versions/createVersionSnapshot";
 
 const db = admin.firestore();
 
@@ -40,8 +41,21 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
       .json({ error: "Published entries cannot be edited" });
   }
 
+  // Create version snapshot
+  await createVersionSnapshot(
+    req.auth!.tenantId,
+    type,
+    id,
+    snap.data()!.currentVersion,
+    snap.data()!.data,
+    snap.data()!.status,
+    req.auth!.uid
+  );
+
+  // Finally update entry
   await entryRef.update({
     data,
+    currentVersion: snap.data()!.currentVersion + 1,
     updatedAt: Date.now(),
   });
 
