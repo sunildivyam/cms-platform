@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as admin from "firebase-admin";
+import { buildPaginatedQuery } from "query/buildQuery";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -7,21 +8,31 @@ const db = admin.firestore();
 export async function listPublicEntries(req: Request, res: Response) {
   const { tenant, type } = req.params;
 
-  const snap = await db
+  const base = db
     .collection("tenants")
     .doc(tenant)
     .collection("entries")
     .doc(type)
     .collection("items")
-    .where("status", "==", "published")
-    .orderBy("publishedAt", "desc")
-    .get();
+    .where("status", "==", "published");
 
-  const items = snap.docs.map((d) => ({
-    id: d.id,
-    ...d.data().data,
-  }));
+  const q = buildPaginatedQuery(base, {
+    pageSize: Number(req.query.pageSize),
+    cursor: req.query.cursor as string,
+    sort: "publishedAt",
+    order: "desc",
+  });
+
+  const snap = await q.get();
+
+  const resultedEntries = {
+    items: snap.docs.map((d) => ({
+      id: d.id,
+      ...d.data().data,
+    })),
+    nextCursor: snap.docs.at(-1)?.ref.path,
+  };
 
   res.set("Cache-Control", "public, max-age=60, s-maxage=300");
-  res.json(items);
+  res.json(resultedEntries);
 }
