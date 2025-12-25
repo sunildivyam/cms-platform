@@ -1,0 +1,8 @@
+{
+  "name": "Blog Post",
+  "slug": "blog_post",
+  "fields": [
+    { "id": "title", "label": "Title", "type": "text", "required": true },
+    { "id": "body", "label": "Body", "type": "richtext" }
+  ]
+}
