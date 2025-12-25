@@ -45,7 +45,8 @@ export interface ContentEntry {
   tenantId: string;
   contentType: string;
   data: Record<string, any>;
-  status: "draft";
+  status: "draft" | "published";
+  publishedAt?: number;
   isDeleted: boolean;
   createdAt: number;
   updatedAt: number;
