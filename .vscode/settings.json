@@ -1,0 +1,7 @@
+{
+  "editor.formatOnSave": true,
+  "multiDiffEditor.experimental.enabled": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "workbench.colorTheme": "Default Dark Modern",
+  "editor.mouseWheelZoom": true
+}

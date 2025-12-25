@@ -7,11 +7,12 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "esModuleInterop": true
-    // "paths": {
-    //   "@cms/shared": ["../packages/shared/src"],
-    //   "@cms/shared/*": ["../packages/shared/src/*"]
-    // }
+    "esModuleInterop": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@cms/shared": ["../packages/shared/src"],
+      "@cms/shared/*": ["../packages/shared/src/*"]
+    }
   },
   "compileOnSave": true,
   "include": ["src"]
