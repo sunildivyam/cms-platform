@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as admin from "firebase-admin";
 import { buildPaginatedQuery } from "query/buildQuery";
+import { PUBLIC_ENTRIES_CACHE } from "@cms/shared";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -33,6 +34,7 @@ export async function listPublicEntries(req: Request, res: Response) {
     nextCursor: snap.docs.at(-1)?.ref.path,
   };
 
-  res.set("Cache-Control", "public, max-age=60, s-maxage=300");
+  res.set("Cache-Control", PUBLIC_ENTRIES_CACHE);
+
   res.json(resultedEntries);
 }

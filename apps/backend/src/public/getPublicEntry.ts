@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import * as admin from "firebase-admin";
+import { PUBLIC_ENTRIES_CACHE } from "@cms/shared";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -24,7 +25,8 @@ export async function getPublicEntry(req: Request, res: Response) {
 
   const doc = snap.docs[0];
 
-  res.set("Cache-Control", "public, max-age=60, s-maxage=600");
+  res.set("Cache-Control", PUBLIC_ENTRIES_CACHE);
+
   res.json({
     id: doc.id,
     ...doc.data().data,

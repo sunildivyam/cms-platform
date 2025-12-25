@@ -17,30 +17,30 @@ export function validateEntry(
 
     // Type validation
     switch (field.type) {
-    case "string":
-    case "richtext":
-      if (typeof value !== "string") {
-        throw new Error(`Field "${field.name}" must be string`);
-      }
-      break;
+      case "string":
+      case "richtext":
+        if (typeof value !== "string") {
+          throw new Error(`Field "${field.name}" must be string`);
+        }
+        break;
 
-    case "number":
-      if (typeof value !== "number") {
-        throw new Error(`Field "${field.name}" must be number`);
-      }
-      break;
+      case "number":
+        if (typeof value !== "number") {
+          throw new Error(`Field "${field.name}" must be number`);
+        }
+        break;
 
-    case "boolean":
-      if (typeof value !== "boolean") {
-        throw new Error(`Field "${field.name}" must be boolean`);
-      }
-      break;
+      case "boolean":
+        if (typeof value !== "boolean") {
+          throw new Error(`Field "${field.name}" must be boolean`);
+        }
+        break;
 
-    case "reference":
-      if (typeof value !== "string") {
-        throw new Error(`Field "${field.name}" must be entry ID`);
-      }
-      break;
+      case "reference":
+        if (typeof value !== "string") {
+          throw new Error(`Field "${field.name}" must be entry ID`);
+        }
+        break;
     }
 
     // Field write permission
