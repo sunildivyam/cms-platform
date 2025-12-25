@@ -39,3 +39,14 @@ export interface Entry<T = any> {
   version: number;
   deleted: boolean;
 }
+
+export interface ContentEntry {
+  id: string;
+  tenantId: string;
+  contentType: string;
+  data: Record<string, any>;
+  status: "draft";
+  isDeleted: boolean;
+  createdAt: number;
+  updatedAt: number;
+}
