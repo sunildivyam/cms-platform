@@ -14,6 +14,8 @@ import { updateEntry } from "entries/updateEntry";
 import { getEntry } from "entries/getEntry";
 import { listEntries } from "entries/listEntries";
 import { createEntry } from "entries/createEntry";
+import { publishEntry } from "entries/publishEntry";
+import { unpublishEntry } from "entries/unpublishEntry";
 
 admin.initializeApp();
 
@@ -73,6 +75,20 @@ app.delete(
   requireAuth,
   requireRole(["admin", "editor"]),
   deleteEntry
+);
+
+app.post(
+  "/entries/:type/:id/publish",
+  requireAuth,
+  requireRole(["admin", "editor"]),
+  publishEntry
+);
+
+app.post(
+  "/entries/:type/:id/unpublish",
+  requireAuth,
+  requireRole(["admin", "editor"]),
+  unpublishEntry
 );
 
 export const api = functions.https.onRequest(app);

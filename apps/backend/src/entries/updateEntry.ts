@@ -23,19 +23,27 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
   }
 
   const schema = typeSnap.docs[0].data() as ContentType;
-  validateEntry(schema, data);
-
-  await db
+  const entryRef = db
     .collection("tenants")
     .doc(req.auth!.tenantId)
     .collection("entries")
     .doc(type)
     .collection("items")
-    .doc(id)
-    .update({
-      data,
-      updatedAt: Date.now(),
-    });
+    .doc(id);
+
+  validateEntry(schema, data);
+
+  const snap = await entryRef.get();
+  if (snap.data()?.status === "published") {
+    return res
+      .status(400)
+      .json({ error: "Published entries cannot be edited" });
+  }
+
+  await entryRef.update({
+    data,
+    updatedAt: Date.now(),
+  });
 
   res.json({ success: true });
 }
