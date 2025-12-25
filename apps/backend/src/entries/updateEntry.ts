@@ -5,6 +5,7 @@ import { validateEntry } from "../validation/validateEntry";
 import { ContentType } from "@cms/shared";
 import { createVersionSnapshot } from "versions/createVersionSnapshot";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function updateEntry(req: AuthedRequest, res: Response) {

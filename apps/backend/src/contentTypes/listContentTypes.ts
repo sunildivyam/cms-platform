@@ -2,6 +2,7 @@ import { Response } from "express";
 import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function listContentTypes(req: AuthedRequest, res: Response) {

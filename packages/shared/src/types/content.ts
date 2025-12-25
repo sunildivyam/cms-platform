@@ -36,15 +36,6 @@ export interface ContentType {
   updatedAt: number;
 }
 
-export interface Entry<T = any> {
-  id: string;
-  contetType: string;
-  status: "draft" | "published";
-  data: T;
-  version: number;
-  deleted: boolean;
-}
-
 export interface ContentEntry {
   id: string;
   tenantId: string;

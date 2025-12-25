@@ -14,12 +14,13 @@ module.exports = {
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: ["tsconfig.json"],
+    project: ["tsconfig.eslint.json"], // Crucial for monorepos
     sourceType: "module",
   },
   ignorePatterns: [
-    "/lib/**/*", // Ignore built files.
-    "/generated/**/*", // Ignore generated files.
+    "/dist/**/*", // Ignore built files
+    "/node_modules/**/*",
+    "tsup.config.ts",
   ],
   plugins: [
     "@typescript-eslint",
@@ -29,5 +30,9 @@ module.exports = {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
     "indent": ["error", 2],
+    "object-curly-spacing": ["error", "always"],
+    "require-jsdoc": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-explicit-any": 0,
   },
 };

@@ -18,7 +18,7 @@
         "*.local"
       ],
       "predeploy": [
-        "pnpm --filter @repo/backend build"
+        "pnpm --filter @cms/backend build"
       ]
     }
   ],

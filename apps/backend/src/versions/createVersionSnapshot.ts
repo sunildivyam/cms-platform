@@ -1,6 +1,7 @@
 import * as admin from "firebase-admin";
 import { ContentVersion } from "@cms/shared";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function createVersionSnapshot(

@@ -1,10 +1,11 @@
 import { Response } from "express";
 import * as admin from "firebase-admin";
-import { nanoid } from "nanoid";
+import { randomUUID } from "node:crypto";
 import { AuthedRequest } from "../auth/requireAuth";
 import { validateEntry } from "../validation/validateEntry";
 import { ContentEntry, ContentType } from "@cms/shared";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function createEntry(req: AuthedRequest, res: Response) {
@@ -33,7 +34,7 @@ export async function createEntry(req: AuthedRequest, res: Response) {
   const now = Date.now();
 
   const entry: ContentEntry = {
-    id: nanoid(),
+    id: randomUUID(),
     tenantId: req.auth!.tenantId,
     contentType,
     data,

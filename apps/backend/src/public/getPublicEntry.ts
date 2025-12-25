@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import * as admin from "firebase-admin";
 
+admin.initializeApp();
 const db = admin.firestore();
 
 export async function getPublicEntry(req: Request, res: Response) {
