@@ -1,6 +1,7 @@
 import { Response } from "express";
 import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
+import { createVersionSnapshot } from "versions/createVersionSnapshot";
 
 const db = admin.firestore();
 
@@ -25,8 +26,20 @@ export async function publishEntry(req: AuthedRequest, res: Response) {
     return res.status(400).json({ error: "Already published" });
   }
 
+  // Create version snapshot
+  await createVersionSnapshot(
+    req.auth!.tenantId,
+    type,
+    id,
+    snap.data()!.currentVersion,
+    snap.data()!.data,
+    "draft",
+    req.auth!.uid
+  );
+
   await ref.update({
     status: "published",
+    currentVersion: snap.data()!.currentVersion + 1,
     publishedAt: Date.now(),
     updatedAt: Date.now(),
   });

@@ -41,6 +41,7 @@ export async function createEntry(req: AuthedRequest, res: Response) {
     isDeleted: false,
     createdAt: now,
     updatedAt: now,
+    currentVersion: 1,
   };
 
   await db

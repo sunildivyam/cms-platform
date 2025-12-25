@@ -16,6 +16,8 @@ import { listEntries } from "entries/listEntries";
 import { createEntry } from "entries/createEntry";
 import { publishEntry } from "entries/publishEntry";
 import { unpublishEntry } from "entries/unpublishEntry";
+import { listVersions } from "versions/listVersions";
+import { rollbackVersion } from "versions/rollbackVersion";
 
 admin.initializeApp();
 
@@ -89,6 +91,16 @@ app.post(
   requireAuth,
   requireRole(["admin", "editor"]),
   unpublishEntry
+);
+
+// ******* vesrions
+app.get("/entries/:type/:id/versions", requireAuth, listVersions);
+
+app.post(
+  "/entries/:type/:id/versions/:version/rollback",
+  requireAuth,
+  requireRole(["admin", "editor"]),
+  rollbackVersion
 );
 
 export const api = functions.https.onRequest(app);
