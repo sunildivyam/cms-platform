@@ -1,0 +1,19 @@
+Create Payload
+{
+  "name": "Blog Post",
+  "slug": "blog_post",
+  "fields": [
+    { "id": "title", "label": "Title", "type": "text", "required": true },
+    { "id": "body", "label": "Body", "type": "richtext" }
+  ]
+}
+
+
+Update Payload
+{
+  "name": "Blog Post v2",
+  "fields": [
+    { "id": "title", "label": "Title", "type": "text", "required": true },
+    { "id": "excerpt", "label": "Excerpt", "type": "text" }
+  ]
+}

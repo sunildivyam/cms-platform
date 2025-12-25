@@ -12,23 +12,30 @@ export type FieldType =
 
 export interface ContentField {
   id: string;
+  label: string;
   type: FieldType;
   required?: boolean;
-  options?: string[];
+  localized?: boolean;
 }
 
 export interface ContentType {
   id: string;
+  tenantId: string;
   name: string;
   slug: string;
   fields: ContentField[];
-  versioned: boolean;
+  status: "draft" | "published";
+  version: number;
+  isDeleted: boolean;
+  createdAt: number;
+  updatedAt: number;
 }
 
-export interface ContentEntry<T = any> {
+export interface Entry<T = any> {
   id: string;
-  type: string;
+  contetType: string;
   status: "draft" | "published";
   data: T;
   version: number;
+  deleted: boolean;
 }
