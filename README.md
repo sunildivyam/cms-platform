@@ -41,7 +41,7 @@ This project is managed as a high-performance monorepo using **pnpm workspaces**
 
 ```bash
 # Clone the repository
-git clone [https://github.com/your-org/cms-platform.git](https://github.com/your-org/cms-platform.git)
+git clone [https://github.com/sunildivyam/cms-platform.git](https://github.com/sunildivyam/cms-platform.git)
 
 # Install dependencies
 pnpm install
