@@ -28,7 +28,7 @@ export async function createEntry(req: AuthedRequest, res: Response) {
   }
 
   const schema = typeSnap.docs[0].data() as ContentType;
-  validateEntry(schema, data);
+  validateEntry(schema, data, req.auth!.role);
 
   const now = Date.now();
 
