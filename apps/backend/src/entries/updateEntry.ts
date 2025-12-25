@@ -4,6 +4,7 @@ import { AuthedRequest } from "../auth/requireAuth";
 import { validateEntry } from "../validation/validateEntry";
 import { ContentType } from "@cms/shared";
 import { createVersionSnapshot } from "versions/createVersionSnapshot";
+import { emitContentEvent } from "events/emitContentEvent";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -11,10 +12,11 @@ const db = admin.firestore();
 export async function updateEntry(req: AuthedRequest, res: Response) {
   const { type, id } = req.params;
   const { data } = req.body;
+  const { role, tenantId } = req.auth!;
 
   const typeSnap = await db
     .collection("tenants")
-    .doc(req.auth!.tenantId)
+    .doc(tenantId)
     .collection("contentTypes")
     .where("slug", "==", type)
     .limit(1)
@@ -25,15 +27,16 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
   }
 
   const schema = typeSnap.docs[0].data() as ContentType;
+  
   const entryRef = db
     .collection("tenants")
-    .doc(req.auth!.tenantId)
+    .doc(tenantId)
     .collection("entries")
     .doc(type)
     .collection("items")
     .doc(id);
 
-  validateEntry(schema, data);
+  validateEntry(schema, data, role);
 
   const snap = await entryRef.get();
   if (snap.data()?.status === "published") {
@@ -44,7 +47,7 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
 
   // Create version snapshot
   await createVersionSnapshot(
-    req.auth!.tenantId,
+    tenantId,
     type,
     id,
     snap.data()!.currentVersion,
@@ -58,6 +61,15 @@ export async function updateEntry(req: AuthedRequest, res: Response) {
     data,
     currentVersion: snap.data()!.currentVersion + 1,
     updatedAt: Date.now(),
+  });
+
+  // Trigger Cache revalidate
+  await emitContentEvent({
+    tenant: tenantId,
+    type,
+    entryId: id,
+    slug: snap.data()!.data.slug,
+    action: "update",
   });
 
   res.json({ success: true });
