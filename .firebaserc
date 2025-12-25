@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "cms-dev-proj"
+  },
+  "targets": {},
+  "etags": {
+    "cms-dev-proj": {
+      "extensionInstances": {}
+    }
+  },
+  "dataconnectEmulatorConfig": {}
+}

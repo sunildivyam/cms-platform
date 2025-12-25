@@ -1,0 +1,9 @@
+{
+  // "compilerOptions": {
+  //   "paths": {
+  //     "@cms/shared": ["../packages/shared/src"],
+  //     "@cms/shared/*": ["../packages/shared/src/*"]
+  //   }
+  // },
+  "include": [".eslintrc.js"]
+}
