@@ -10,8 +10,8 @@
     "esModuleInterop": true,
     "baseUrl": "./src",
     "paths": {
-      "@cms/shared": ["../packages/shared/src"],
-      "@cms/shared/*": ["../packages/shared/src/*"]
+      "@cms/shared": ["../packages/shared/dist"],
+      "@cms/shared/*": ["../packages/shared/dist/*"]
     }
   },
   "compileOnSave": true,

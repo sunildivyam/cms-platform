@@ -1,4 +1,3 @@
-import * as functions from "firebase-functions/v2";
 import * as admin from "firebase-admin";
 import { ContentType } from "@cms/shared";
 
