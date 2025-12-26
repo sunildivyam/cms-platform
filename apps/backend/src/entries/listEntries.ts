@@ -31,7 +31,7 @@ export async function listEntries(req: AuthedRequest, res: Response) {
     }
   }
 
-  //Paginate query
+  // Paginate query
   const q = buildPaginatedQuery(base, {
     pageSize: Number(req.query.pageSize),
     cursor: req.query.cursor as string,

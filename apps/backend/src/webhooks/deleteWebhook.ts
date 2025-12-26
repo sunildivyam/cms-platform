@@ -24,7 +24,8 @@ export async function deleteWebhook(req: AuthedRequest, res: Response) {
     // Delete the document
     await webhookRef.delete();
 
-    // Firestore delete() is idempotent (doesn't fail if the doc is already gone)
+    // Firestore delete() is idempotent
+    // (doesn't fail if the doc is already gone)
     res.json({ message: "Webhook deleted successfully", id });
   } catch (error) {
     console.error("Error deleting webhook:", error);

@@ -29,10 +29,11 @@ module.exports = {
   rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
-    "indent": ["error", 2],
+    "indent": 0,
     "object-curly-spacing": ["error", "always"],
     "require-jsdoc": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/no-explicit-any": 0,
+    "linebreak-style": 0,
   },
 };
