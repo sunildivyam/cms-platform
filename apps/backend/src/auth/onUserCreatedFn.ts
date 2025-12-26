@@ -48,7 +48,7 @@ export const onUserCreatedFn = beforeUserCreated(
     return {
       customClaims: {
         tenantId: tenantId,
-        role: "owner",
+        role: "admin",
       },
     };
   }
