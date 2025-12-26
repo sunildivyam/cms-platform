@@ -3,4 +3,3 @@ export * from "./types/permission";
 export * from "./types/tenant";
 export * from "./types/user";
 export * from "./types/webhooks";
-export * from "./constants/content";

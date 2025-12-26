@@ -2,7 +2,7 @@ import { Response } from "express";
 import * as admin from "firebase-admin";
 import { AuthedRequest } from "../auth/requireAuth";
 import { buildPaginatedQuery } from "query/buildQuery";
-import { ALLOWED_FILTERS } from "@cms/shared";
+import { ALLOWED_FILTERS } from "../constants/content";
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -31,7 +31,7 @@ export async function listEntries(req: AuthedRequest, res: Response) {
     }
   }
 
-  //Paginate query
+  // Paginate query
   const q = buildPaginatedQuery(base, {
     pageSize: Number(req.query.pageSize),
     cursor: req.query.cursor as string,

@@ -23,6 +23,7 @@ import { createWebhook } from "webhooks/createWebhook";
 import { getWebhooks } from "webhooks/getWebhooks";
 import { getWebhookById } from "webhooks/getWebhookById";
 import { deleteWebhook } from "webhooks/deleteWebhook";
+import { ADMIN_OWNER_EDITOR } from "constants/roles";
 
 admin.initializeApp();
 
@@ -33,21 +34,21 @@ app.use(express.json());
 app.post(
   "/content-types",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   createContentType
 );
 
 app.get(
   "/content-types",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   listContentTypes
 );
 
 app.patch(
   "/content-types/:id",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   updateContentType
 );
 
@@ -60,12 +61,7 @@ app.delete(
 
 // **** contentEntries
 
-app.post(
-  "/entries",
-  requireAuth,
-  requireRole(["admin", "editor"]),
-  createEntry
-);
+app.post("/entries", requireAuth, requireRole(ADMIN_OWNER_EDITOR), createEntry);
 
 app.get("/entries", requireAuth, listEntries);
 app.get("/entries/:type/:id", requireAuth, getEntry);
@@ -73,28 +69,28 @@ app.get("/entries/:type/:id", requireAuth, getEntry);
 app.patch(
   "/entries/:type/:id",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   updateEntry
 );
 
 app.delete(
   "/entries/:type/:id",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   deleteEntry
 );
 
 app.post(
   "/entries/:type/:id/publish",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   publishEntry
 );
 
 app.post(
   "/entries/:type/:id/unpublish",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   unpublishEntry
 );
 
@@ -104,7 +100,7 @@ app.get("/entries/:type/:id/versions", requireAuth, listVersions);
 app.post(
   "/entries/:type/:id/versions/:version/rollback",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   rollbackVersion
 );
 
@@ -115,14 +111,14 @@ app.get("/webhooks/:id", requireAuth, getWebhookById);
 app.post(
   "/webhooks",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   createWebhook
 );
 
 app.delete(
   "/webhooks/:id",
   requireAuth,
-  requireRole(["admin", "editor"]),
+  requireRole(ADMIN_OWNER_EDITOR),
   deleteWebhook
 );
 

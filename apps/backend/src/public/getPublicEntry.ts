@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as admin from "firebase-admin";
-import { PUBLIC_ENTRIES_CACHE } from "@cms/shared";
+import { PUBLIC_ENTRIES_CACHE } from "../constants/content";
 
 admin.initializeApp();
 const db = admin.firestore();
